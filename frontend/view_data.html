@@ -43,6 +43,53 @@
       .td-option {
         width: 110px;
       }
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        body {
+          overflow-x: hidden;
+        }
+        .head {
+          font-size: 24px;
+          margin-top: 25px;
+          padding: 0 10px;
+        }
+        .table-body {
+          margin-top: 25px;
+          margin-left: 10px;
+          margin-right: 10px;
+          overflow-x: auto;
+          max-width: 100%;
+          -webkit-overflow-scrolling: touch;
+        }
+        .table-body center {
+          display: block;
+          overflow-x: auto;
+        }
+        td {
+          padding: 8px;
+          font-size: 14px;
+          min-width: 120px;
+          width: auto;
+        }
+        .options {
+          flex-wrap: wrap;
+          width: auto;
+          min-width: 80px;
+        }
+        .td-option {
+          width: auto;
+        }
+      }
+      @media (max-width: 480px) {
+        .head {
+          font-size: 20px;
+        }
+        td {
+          padding: 6px;
+          font-size: 12px;
+          min-width: 100px;
+        }
+      }
     </style>
   </head>
 
