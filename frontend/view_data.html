@@ -163,9 +163,11 @@
     <script>
       angular
         .module("myApp", [])
-        .controller("myCtrl", function ($scope, $http) {
+        .controller("myCtrl", function ($scope, $http, $interval) {
           $scope.user_data = {};
           $scope.currentUserEmail = localStorage.getItem("currentUserEmail");
+          let lastDataSnapshot = "";
+          let poller = null;
           $scope.isOwner = function (data) {
             return !!$scope.currentUserEmail && data.email === $scope.currentUserEmail;
           };
@@ -174,7 +176,12 @@
               .get("https://angularjs-crud-operation.onrender.com/form/view")
               .then((res) => {
                 console.log(res.data.data);
-                $scope.user_data = res.data.data;
+                const latestData = Array.isArray(res.data.data) ? res.data.data : [];
+                const nextSnapshot = JSON.stringify(latestData);
+                if (nextSnapshot !== lastDataSnapshot) {
+                  lastDataSnapshot = nextSnapshot;
+                  $scope.user_data = latestData;
+                }
               })
               .catch((err) => {
                 console.log(err.data);
@@ -200,6 +207,12 @@
             window.location.href = `update.html?id=${id}`;
           }
           $scope.get_data();
+          poller = $interval($scope.get_data, 4000);
+          $scope.$on("$destroy", function () {
+            if (poller) {
+              $interval.cancel(poller);
+            }
+          });
         });
     </script>
   </body>
