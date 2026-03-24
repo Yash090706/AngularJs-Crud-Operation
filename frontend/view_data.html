@@ -127,6 +127,8 @@
                     border: 2px solid;
                   "
                   ng-click="move_update(data._id)"
+                  ng-disabled="!isOwner(data)"
+                  ng-show="isOwner(data)"
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/128/10336/10336582.png"
@@ -143,6 +145,8 @@
                     border: 2px solid;
                   "
                   ng-click="delete_user(data._id)"
+                  ng-disabled="!isOwner(data)"
+                  ng-show="isOwner(data)"
                 >
                   <img
                     src="https://cdn-icons-png.flaticon.com/128/9790/9790368.png"
@@ -161,6 +165,10 @@
         .module("myApp", [])
         .controller("myCtrl", function ($scope, $http) {
           $scope.user_data = {};
+          $scope.currentUserEmail = localStorage.getItem("currentUserEmail");
+          $scope.isOwner = function (data) {
+            return !!$scope.currentUserEmail && data.email === $scope.currentUserEmail;
+          };
           $scope.get_data = function () {
             $http
               .get("https://angularjs-crud-operation.onrender.com/form/view")
@@ -174,15 +182,23 @@
           };
           $scope.delete_user = function (id) {
             $http
-              .delete(`https://angularjs-crud-operation.onrender.com/form/delete/${id}`)
+              .delete(`https://angularjs-crud-operation.onrender.com/form/delete/${id}`, {
+                headers: {
+                  "x-user-email": $scope.currentUserEmail || "",
+                },
+              })
               .then((res) => {
                 console.log(res.data);
                 $scope.get_data();
               });
           };
           $scope.move_update = function(id){
-  window.location.href = `update.html?id=${id}`;
-}
+            const selectedUser = $scope.user_data.find((item) => item._id === id);
+            if (!selectedUser || !$scope.isOwner(selectedUser)) {
+              return;
+            }
+            window.location.href = `update.html?id=${id}`;
+          }
           $scope.get_data();
         });
     </script>

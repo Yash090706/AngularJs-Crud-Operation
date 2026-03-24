@@ -3,12 +3,20 @@ const form_model = require("../Models/form");
 const delete_data=async(req,res)=>{
   try{
       const {id}=req.params;
+      const loggedInEmail = req.headers["x-user-email"];
 
     if(!id){
         return res.status(400).json({
             status:0,
             succes:false,
             msg:"Id not received"
+        })
+    }
+    if(!loggedInEmail){
+        return res.status(401).json({
+            status:0,
+            success:false,
+            msg:"Unauthorized user"
         })
     }
     const user=await form_model.findOne({_id:id})
@@ -18,6 +26,13 @@ const delete_data=async(req,res)=>{
             success:false,
             msg:"User doesn't exists"
         })
+    }
+    if(user.email!==loggedInEmail){
+      return res.status(403).json({
+        status:0,
+        success:false,
+        msg:"You can only delete your own record"
+      })
     }
 
     const delete_user=await form_model.deleteOne({_id:id})

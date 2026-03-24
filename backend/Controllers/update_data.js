@@ -11,7 +11,7 @@ const get_single_data=async(req,res)=>{
             msg:"Id is required"
         })
     }
-    const get_user_data=await form_model.findOne({_id:id})
+    const get_user_data=await form_model.findOne({_id:id}).select("-password")
     if(!get_user_data){
         return res.status(404).json({
             status:0,
@@ -37,6 +37,32 @@ const update_user_data = async (req, res) => {
   try {
     const { id } = req.params;
     const { fullname, email, phone, address, gender, course, password } = req.body;
+    const loggedInEmail = req.headers["x-user-email"];
+
+    if (!loggedInEmail) {
+      return res.status(401).json({
+        status: 0,
+        success: false,
+        msg: "Unauthorized user",
+      });
+    }
+
+    const existing_user = await form_model.findById(id);
+    if (!existing_user) {
+      return res.status(404).json({
+        status: 0,
+        success: false,
+        msg: "User not found",
+      });
+    }
+
+    if (existing_user.email !== loggedInEmail) {
+      return res.status(403).json({
+        status: 0,
+        success: false,
+        msg: "You can only update your own record",
+      });
+    }
 
     const update_data = {};
 
@@ -55,8 +81,8 @@ const update_user_data = async (req, res) => {
     const updates = await form_model.findByIdAndUpdate(
       id,
       update_data,
-      { new: true }
-    );
+      { new: true, select: "-password" }
+    ).select("-password");
 
     return res.status(200).json({
       status: 1,

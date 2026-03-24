@@ -152,6 +152,7 @@
                 .post("https://angularjs-crud-operation.onrender.com/form/register", $scope.user)
                 .then(function (res) {
                   alert(res.data.msg);
+                  localStorage.setItem("currentUserEmail", $scope.user.email);
                   window.location.href = "view_data.html";
                   $scope.user = {};
                   $scope.success = true;
