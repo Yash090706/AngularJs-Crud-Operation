@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body ng-controller="myCtrl">
+    <div class="main">
+      <div class="heading">
+        <center>Form Registration using Angular Js</center>
+      </div>
+      <div class="form-section">
+        <form class="form" name="RegForm" ng-submit="submit()" novalidate>
+          <input
+            type="text"
+            placeholder="Enter fullname"
+            name="fullname"
+            ng-minlength="3"
+            ng-model="user.fullname"
+            required
+          />
+          <span
+            class="error"
+            ng-show="RegForm.fullname.$touched && RegForm.fullname.$invalid"
+            >Altleast 3 characters required</span
+          >
+          <input
+            type="email"
+            placeholder="Enter Email"
+            name="email"
+            ng-model="user.email"
+            required
+          />
+          <span
+            class="error"
+            ng-show="RegForm.email.$touched && RegForm.email.$invalid"
+            >Email Format is invalid.</span
+          >
+          <input
+            type="number"
+            placeholder="Enter Phone Number"
+            name="phone"
+            ng-model="user.phone"
+            ng-pattern="/^[0-9]{10}$/"
+            required
+          />
+          <span
+            class="error"
+            ng-show="RegForm.phone.$touched && RegForm.phone.$invalid"
+            >Phone Number upto 10 digits allowed</span
+          >
+          <input
+            type="password"
+            placeholder="Enter Password"
+            ng-model="user.password"
+            name="password"
+            ng-minlength="8"
+            required
+          />
+          <span
+            class="error"
+            ng-show="RegForm.password.$touched && RegForm.password.$invalid"
+            >Minimum 8 characters required</span
+          >
+
+          <div class="gender-class">
+            <label class="gender-label">Gender:</label>
+
+            <div class="gen">
+              <label class="radio-option">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="male"
+                  ng-model="user.gender"
+                  required
+                />
+                Male
+              </label>
+
+              <label class="radio-option">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="female"
+                  ng-model="user.gender"
+                />
+                Female
+              </label>
+            </div>
+          </div>
+          <div class="dropdown">
+            <label> Course: </label>
+            <select name="course" ng-model="user.course" required>
+              <option>FYCS</option>
+              <option>SYCS</option>
+              <option>TYCS</option>
+            </select>
+            <span
+              class="error"
+              ng-show="RegForm.course.$touched && RegForm.course.$invalid"
+              ng-model="user.course"
+              required
+              >Select Course</span
+            >
+          </div>
+          <textarea
+            placeholder="Enter address"
+            name="address"
+            ng-model="user.address"
+            ng-minlength="20"
+            required
+          ></textarea>
+          <span
+            class="error"
+            ng-show="RegForm.address.$touched && RegForm.address.$invalid"
+            >Minimum 20 charcters required</span
+          >
+
+          <button class="button">Submit</button>
+          <p class="error" ng-show="RegForm.$submitted && RegForm.$invalid">
+            All fields are required and must be valid.
+          </p>
+          <h1 class="success" ng-show="success">Registered Successfully.</h1>
+        </form>
+        <button style="margin-left: 600px;
+        margin-top: 50px;
+    padding: 10px;
+    width: 120px;
+    color:rgb(165, 87, 248);
+    font-weight: 700;
+    border-radius: 10px;
+    border:none;
+    font-size:13px;
+    "
+    ng-click='route()'>View Data -></button>
+      </div>
+    </div>
+    
+    <script>
+      angular
+        .module("myApp", [])
+        .controller("myCtrl", function ($scope, $http) {
+          $scope.user = {};
+          $scope.submit = function () {
+            if ($scope.RegForm.$valid) {
+              console.log("User Data - ", $scope.user);
+              $http
+                .post("http://localhost:8000/form/register", $scope.user)
+                .then(function (res) {
+                  alert(res.data.msg);
+                  window.location.href = "view_data.html";
+                  $scope.user = {};
+                  $scope.success = true;
+
+                  $scope.RegForm.$setPristine();
+                  $scope.RegForm.$setUntouched();
+                })
+                .catch((err) => {
+                  alert(err?.data?.msg || "Something went wrong");
+                });
+            }
+          };
+          $scope.route=()=>{
+            window.location.href="view_data.html";
+          }
+        });
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,126 @@
+body {
+  background-color: rgb(165, 87, 248);
+}
+.heading {
+  font-size: 30px;
+  font-family: sans-serif;
+  margin-top: 50px;
+  font-weight: 600;
+  /* color:rgb(91, 90, 90);
+             */
+  text-shadow: 0px 1px 1px rgb(147, 146, 146);
+  color: white;
+}
+.form-section {
+  margin-top: 30px;
+  margin-left: 500px;
+  margin-right: 350px;
+  width: 500px;
+  background-color: white;
+  min-height: 580px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.form {
+  margin-left: 50px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+input,
+textarea {
+  width: 350px;
+  padding: 10px;
+  border: 2px solid rgb(165, 87, 248);
+  margin-top: 20px;
+  outline: none;
+  color: gray;
+  font-size: 15px;
+  font-weight: 600;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+}
+.gender-class {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.gender-label {
+  font-weight: 900;
+  font-size: 18px;
+  color: rgb(165, 87, 248);
+}
+
+.gen {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.radio-option input {
+  width: auto; /* Important */
+  margin-top: 0; /* Override input margin */
+}
+input[type="radio"] {
+  accent-color: rgb(165, 87, 248);
+}
+.dropdown {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(165, 87, 248);
+}
+.button {
+  max-width: 375px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: rgb(165, 87, 248);
+  color: white;
+  outline: none;
+  font-size: 17px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border: 2px solid red;
+}
+input.ng-touched.ng-valid,
+textarea.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
+  border: 2px solid green;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+}
+.success {
+  color: green;
+  font-size: 18px;
+  margin-left: 200px;
+}
+
