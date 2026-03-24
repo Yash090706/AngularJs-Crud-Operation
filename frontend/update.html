@@ -137,7 +137,7 @@
             const id=params.get("id");
             console.log(id)
           $scope.get_data = function () {
-            $http.get(`http://localhost:8000/form/get/${id}`)
+            $http.get(`https://angularjs-crud-operation.onrender.com/form/get/${id}`)
               .then((res) => {
                 console.log(res.data.get_user_data);
                 $scope.user = res.data.get_user_data;
@@ -151,7 +151,7 @@
           $scope.submit = function () {
             if ($scope.RegForm.$valid) {
               console.log("User Data - ", $scope.user);
-              $http.put(`http://localhost:8000/form/update-form/${id}`, $scope.user)
+              $http.put(`https://angularjs-crud-operation.onrender.com/form/update-form/${id}`, $scope.user)
                 .then(function (res) {
                   alert(res.data.msg);
                   window.location.href = "view_data.html";

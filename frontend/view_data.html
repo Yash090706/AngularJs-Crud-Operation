@@ -116,7 +116,7 @@
           $scope.user_data = {};
           $scope.get_data = function () {
             $http
-              .get("http://localhost:8000/form/view")
+              .get("https://angularjs-crud-operation.onrender.com/form/view")
               .then((res) => {
                 console.log(res.data.data);
                 $scope.user_data = res.data.data;
@@ -127,7 +127,7 @@
           };
           $scope.delete_user = function (id) {
             $http
-              .delete(`http://localhost:8000/form/delete/${id}`)
+              .delete(`https://angularjs-crud-operation.onrender.com/form/delete/${id}`)
               .then((res) => {
                 console.log(res.data);
                 $scope.get_data();

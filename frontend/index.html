@@ -149,7 +149,7 @@
             if ($scope.RegForm.$valid) {
               console.log("User Data - ", $scope.user);
               $http
-                .post("http://localhost:8000/form/register", $scope.user)
+                .post("https://angularjs-crud-operation.onrender.com/form/register", $scope.user)
                 .then(function (res) {
                   alert(res.data.msg);
                   window.location.href = "view_data.html";
