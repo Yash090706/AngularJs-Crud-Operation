@@ -14,7 +14,9 @@
       </div>
       <div class="form-section">
         <form class="form" name="RegForm" ng-submit="submit()" novalidate>
+          <label for="fullname">Full Name</label>
           <input
+            id="fullname"
             type="text"
             placeholder="Enter fullname"
             name="fullname"
@@ -27,7 +29,9 @@
             ng-show="RegForm.fullname.$touched && RegForm.fullname.$invalid"
             >Altleast 3 characters required</span
           >
+          <label for="email">Email</label>
           <input
+            id="email"
             type="email"
             placeholder="Enter Email"
             name="email"
@@ -39,7 +43,9 @@
             ng-show="RegForm.email.$touched && RegForm.email.$invalid"
             >Email Format is invalid.</span
           >
+          <label for="phone">Phone Number</label>
           <input
+            id="phone"
             type="number"
             placeholder="Enter Phone Number"
             name="phone"
@@ -52,13 +58,23 @@
             ng-show="RegForm.phone.$touched && RegForm.phone.$invalid"
             >Phone Number upto 10 digits allowed</span
           >
-          <input
-            type="password"
-            placeholder="Enter Password"
-            ng-model="user.password"
-            name="password"
-            ng-minlength="8"
-          />
+          <label for="password">New Password (optional)</label>
+          <div class="password-wrap">
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter Password"
+              ng-model="user.password"
+              name="password"
+              ng-minlength="8"
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              aria-label="Toggle password visibility"
+              onclick="const p=this.previousElementSibling; p.type = p.type === 'password' ? 'text' : 'password'; this.textContent = p.type === 'password' ? '👁' : '🙈';"
+            >👁</button>
+          </div>
           <span
             class="error"
             ng-show="RegForm.password.$touched && RegForm.password.$invalid"
@@ -92,8 +108,8 @@
             </div>
           </div>
           <div class="dropdown">
-            <label> Course: </label>
-            <select name="course" ng-model="user.course" required>
+            <label for="course">Course</label>
+            <select id="course" name="course" ng-model="user.course" required>
               <option>FYCS</option>
               <option>SYCS</option>
               <option>TYCS</option>
@@ -106,7 +122,9 @@
               >Select Course</span
             >
           </div>
+          <label for="address">Address</label>
           <textarea
+            id="address"
             placeholder="Enter address"
             name="address"
             ng-model="user.address"
