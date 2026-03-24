@@ -52,14 +52,22 @@
             ng-show="RegForm.phone.$touched && RegForm.phone.$invalid"
             >Phone Number upto 10 digits allowed</span
           >
-          <input
-            type="password"
-            placeholder="Enter Password"
-            ng-model="user.password"
-            name="password"
-            ng-minlength="8"
-            required
-          />
+          <div class="password-wrap">
+            <input
+              type="password"
+              placeholder="Enter Password"
+              ng-model="user.password"
+              name="password"
+              ng-minlength="8"
+              required
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              aria-label="Toggle password visibility"
+              onclick="const p=this.previousElementSibling; p.type = p.type === 'password' ? 'text' : 'password'; this.textContent = p.type === 'password' ? '👁' : '🙈';"
+            >👁</button>
+          </div>
           <span
             class="error"
             ng-show="RegForm.password.$touched && RegForm.password.$invalid"
