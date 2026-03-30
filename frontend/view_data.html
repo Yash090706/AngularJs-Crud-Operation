@@ -212,8 +212,8 @@
           $scope.isOwner = function (data) {
             return !!$scope.currentUserEmail && data.email === $scope.currentUserEmail;
           };
-          $scope.get_data = function () {
-            $http
+          $scope.get_data = async function () {
+           await $http
               .get("https://angularjs-crud-operation.onrender.com/form/view")
               .then((res) => {
                 console.log(res.data.data);
@@ -228,8 +228,8 @@
                 console.log(err.data);
               });
           };
-          $scope.delete_user = function (id) {
-            $http
+          $scope.delete_user = async function (id) {
+            await $http
               .delete(`https://angularjs-crud-operation.onrender.com/form/delete/${id}`, {
                 headers: {
                   "x-user-email": $scope.currentUserEmail || "",

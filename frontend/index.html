@@ -153,11 +153,10 @@
         .module("myApp", [])
         .controller("myCtrl", function ($scope, $http) {
           $scope.user = {};
-          $scope.submit = function () {
+          $scope.submit =  async function (){
             if ($scope.RegForm.$valid) {
               console.log("User Data - ", $scope.user);
-              $http
-                .post("https://angularjs-crud-operation.onrender.com/form/register", $scope.user)
+               await $http.post("https://angularjs-crud-operation.onrender.com/form/register", $scope.user)
                 .then(function (res) {
                   alert(res.data.msg);
                   localStorage.setItem("currentUserEmail", $scope.user.email);

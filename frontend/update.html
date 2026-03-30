@@ -154,8 +154,8 @@
            const params=new URLSearchParams(window.location.search)
             const id=params.get("id");
             console.log(id)
-          $scope.get_data = function () {
-            $http.get(`https://angularjs-crud-operation.onrender.com/form/get/${id}`, {
+          $scope.get_data = async function () {
+            await $http.get(`https://angularjs-crud-operation.onrender.com/form/get/${id}`, {
               headers: {
                 "x-user-email": $scope.currentUserEmail || "",
               },
@@ -171,10 +171,10 @@
               
           };
           $scope.get_data();
-          $scope.submit = function () {
+          $scope.submit = async function () {
             if ($scope.RegForm.$valid) {
               console.log("User Data - ", $scope.user);
-              $http.put(`https://angularjs-crud-operation.onrender.com/form/update-form/${id}`, $scope.user, {
+             await $http.put(`https://angularjs-crud-operation.onrender.com/form/update-form/${id}`, $scope.user, {
                 headers: {
                   "x-user-email": $scope.currentUserEmail || "",
                 },
